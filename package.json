@@ -1,5 +1,5 @@
 {
-  "name": "servidor_restaurante0contacto",
+  "name": "servidor_0_contacto",
   "version": "1.0.0",
   "description": "backend del restaurante 0 contacto",
   "main": "index.js",
@@ -9,10 +9,6 @@
     "build": "babel src --out-dir dist",
     "start": "node dist/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/FriberNamzug/servidor_restaurante0contacto.git"
-  },
   "keywords": [
     "resturante",
     "digital",
@@ -20,10 +16,8 @@
   ],
   "author": "FriberNamzug",
   "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/FriberNamzug/servidor_restaurante0contacto/issues"
-  },
-  "homepage": "https://gitlab.com/FriberNamzug/servidor_restaurante0contacto#readme",
+
+  
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

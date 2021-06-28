@@ -1,11 +1,6 @@
-import express from 'express'
-
-const app = express()
-
-app.get('/',(req,res)=>{
-res.send('Hello Word')
-})
+import app from './app'
+import  './config/db'
 
 app.listen(3000, ()=>{
-    console.log("Servidor desde el puerto 4000")
+    console.log(`Servidor desde el puerto 3000 `)
 })

@@ -1,11 +1,11 @@
 import {Router} from 'express'
 import * as productosController from '../controllers/productos.controller'
-
+import {verifyToken} from '../middlewares'
 const router = Router()
 
 router.get('/', productosController.obtenerProductos)
 
-router.post('/', productosController.crearProducto)
+router.post('/', verifyToken ,productosController.crearProducto)
 
 router.get('/:productoId', productosController.obtenerProducto)
 

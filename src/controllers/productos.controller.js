@@ -5,22 +5,24 @@ import Producto from '../models/producto.model'
 //////////////////////////////////////////////////////
 export const crearProducto = async (req,res)=>{
 
-    const{nombre, categoria, precio, imagenUrl} = req.body
+const{nombre, categoria, precio, imagenUrl} = req.body
 
-   const nuevoProducto = new Producto({nombre, categoria, precio, imagenUrl})
+const nuevoProducto = new Producto({nombre, categoria, precio, imagenUrl})
 
- const productoGuardado =  await nuevoProducto.save()
+const productoGuardado =  await nuevoProducto.save()
 
-    res.status(201).json(productoGuardado)
+res.status(201).json(productoGuardado)
+
 }
 
 //////////////////////////////////////////////////////
     //OBTENER UN SOLO PRODUCTO
 //////////////////////////////////////////////////////
 export const obtenerProducto = async (req,res)=>{
+    
     const producto = await Producto.findById(req.params.productoId)
+    
     res.status(200).json(producto)
-
 
 }
 //////////////////////////////////////////////////////
@@ -29,6 +31,7 @@ export const obtenerProducto = async (req,res)=>{
 export const obtenerProductos = async (req,res)=>{
 
     const productos = await Producto.find()
+    
     res.json(productos)
 
 }
@@ -51,9 +54,6 @@ export const eliminarProducto = async (req,res)=>{
     const { productoId } = req.params
 
     await Producto.findByIdAndRemove(productoId)
-    res.status(204).send({
-        msg: "Producto Eliminado!!",
-        producto: productoId
-    })
+    res.status(204).json()
 
 }

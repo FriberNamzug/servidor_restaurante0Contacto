@@ -2,22 +2,51 @@ import {Schema, model} from 'mongoose'
 import bcrypt from 'bcryptjs'
 
 const usuarioSchema = new Schema ({
-username:{
-    type: String,
-    unique: true
-},
-email:{
-    type:String,
-    unique: true
-},
-password:{
-    type:String,
-    required:true
-},
-roles: [{
-    ref:"Roles",
-    type: Schema.Types.ObjectId
-}]
+    nombre:{
+        type: String,
+        required:true
+    },
+    apellido:{
+        type: String,
+    },
+    edad:{
+        type: String,
+    },
+    telefono:{
+        type: String,
+    },
+    email:{
+        type:String,
+        unique: true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    rol:{
+        type:String,
+        required:true,
+        default: "cliente"
+    },
+    terminosCondiciones:{
+        type:Boolean,
+        required:true,
+    },
+    recibirPromociones:{
+        type:Boolean,
+        required:false,
+        default: false
+    },
+    rol:{
+        type:String,
+        required:true,
+        default: "cliente"
+    }
+
+
+
+
+
 },{
     timestamps: true,
     versionKey: false

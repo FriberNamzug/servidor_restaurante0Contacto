@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+import { uri } from "./urlDB";
 
-mongoose.connect("mongodb://localhost/apiRestaurante", {
+/* const uri = ""; */ //agregar la uri
+
+mongoose.connect(uri, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
     useFindAndModify: true,

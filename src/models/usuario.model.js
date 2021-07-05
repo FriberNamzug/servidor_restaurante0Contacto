@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 const usuarioSchema = new Schema ({
     nombre:{
         type: String,
-        required:true
+        required:["Es nombre es requerido",true],
     },
     apellido:{
         type: String,
@@ -17,32 +17,45 @@ const usuarioSchema = new Schema ({
     },
     email:{
         type:String,
-        unique: true
+        unique: true,
+        required:["Es requerido ingresar el email",true],
     },
     password:{
         type:String,
-        required:true
+        required:["La contraseña es requerida",true],
     },
     rol:{
         type:String,
-        required:true,
+        required:["El rol es requerido, pero por default es cliente",true],
         default: "cliente"
     },
     terminosCondiciones:{
         type:Boolean,
-        required:true,
+        required:["Aceptar los terminos y condiciones es necesario",true],
     },
     recibirPromociones:{
         type:Boolean,
         required:false,
         default: false
     },
-    rol:{
-        type:String,
-        required:true,
-        default: "cliente"
-    }
 
+    historialPedidos:[{
+        nombre: {
+            type: String,
+        },
+        descripcion:{
+            type: String,
+        },
+        categoria: {
+            type: String,
+        },
+        precio: {
+            type: String,
+        },
+        imagenUrl: {
+            type: String,
+        }
+    }],
 
 
 

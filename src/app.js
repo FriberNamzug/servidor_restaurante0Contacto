@@ -10,7 +10,7 @@ import autenticacionRoutes from './routes/autenticacion.routes'
 
 const app = express()
 
-creandoRoles()
+//creandoRoles()
  
 
 app.use(express.json())

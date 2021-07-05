@@ -1,7 +1,6 @@
 import Usuario from "../models/usuario.model"
 import jwt from "jsonwebtoken"
 import configToken from "../config/token";
-import RolesModel from "../models/roles.model";
 
 //////////////////////////////////////////////////////
 /// Ruta para registrar un usuario
@@ -10,33 +9,29 @@ export const registrarse = async (req,res) => {
   
    try {
        
-       const {username,email,password,roles} = req.body
+       const {nombre,apellido,edad,telefono,terminosCondiciones,email,password,} = req.body
     
        //validara validar si existe usuario
-    const UsuarioExistente = Usuario.find({email})
+    const UsuarioExistente = await Usuario.findOne({email})
+    
+    if(UsuarioExistente){
+       return res.status(400).json({
+          message: "E-Mail en uso, registrate con otro o inicia sesion con " + email,
+         })
+      }
+
     /////////////////////////////////////////////////
     
        const nuevoUsuario = new Usuario({
-           username,
-           email,
-           password: await Usuario.encryptPassword(password)
+         nombre,
+         apellido,
+         edad,
+         telefono,
+         email,
+         terminosCondiciones,
+         password: await Usuario.encryptPassword(password)
        })
     
-       
-    //////////////////////////////////////////////////
-       /* Roles a validar */ //PENDIENTE
-    //////////////////////////////////////////////////
-    if(roles){
-       const rolesEncontrado = await RolesModel.find({nombre: {$in: roles}})
-       nuevoUsuario.roles = rolesEncontrado.map(role => role._id)
-    }else{
-       const role = await RolesModel.findOne({nombre:"cliente"})
-       nuevoUsuario.roles = [role._id]
-    }
-    
-
-    //////////////////////////////////////////////////
-    //////////////////////////////////////////////////
     const usuarioGuardado = await nuevoUsuario.save()
     
     /* Se validara con un token para que el 
@@ -50,15 +45,30 @@ export const registrarse = async (req,res) => {
     //Con esto devolvemos un token al usuario para que
     // lo solicite para cada
     //accion que hara en la web
-    res.status(200).json({token})
+    res.status(200).json({
+      message: "El usuario se creo de forma exitosa",
+      token,
+      usuario: {
+         nombre: nombre,
+         apellido: apellido,
+         edad: edad,
+         telefono: telefono,
+         email: email,
+         password: "Encryptada y segura!!",
+         terminosCondiciones: terminosCondiciones,
+      }
+      })
     console.log(usuarioGuardado)
-
-
 
 
    } catch (error) {
 
-    console.log(`Ocurrio un error inesperado :( ${error})`)
+   res.status(500).json({
+      message: "Ocurrio un error en el servidor",
+      error,
+   })
+
+    console.log(`Ocurrio un error en el servidor: ${error})`)
        
    }
    
@@ -68,7 +78,11 @@ export const registrarse = async (req,res) => {
 
 
 
+/* 
 
+INICIAMOS SESION (:
+
+*/
 
 
 
@@ -79,11 +93,11 @@ export const inicioSesion = async (req,res) => {
         
         const {email,password} = req.body
     
-        const usuarioEncontrado = await Usuario.findOne({email}).populate("roles")
+        const usuarioEncontrado = await Usuario.findOne({email})
     
         console.log(usuarioEncontrado)
     
-        if(!usuarioEncontrado) return res.status(400).json({message: "Usuario no fue encontrado"})
+        if(!usuarioEncontrado) return res.status(400).json({message: "El E-Mail no se encontro, registrate"})
     
         const passwordEmparejada = await Usuario.compararPassword(password, usuarioEncontrado.password)
         
@@ -96,12 +110,25 @@ export const inicioSesion = async (req,res) => {
         const token = jwt.sign({id:usuarioEncontrado._id},configToken.SECRET,{
             expiresIn:86400
         })
-        res.json({token})
+        res.json({
+         message: 'Se inicio session de forma correcta',
+         usuario: {
+            usuarioEncontrado
+         },
+         token
+         })
 
 
     } catch (error) {
-        console.log(`Ha ocurrido un error ): ${error}`)
-    }
+
+      res.status(500).json({
+         message: "Ocurrio un error en el servidor",
+         error,
+      })
+   
+       console.log(`Ocurrio un error en el servidor: ${error})`)
+
+   }
 
 
 

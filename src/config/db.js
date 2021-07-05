@@ -4,7 +4,8 @@ mongoose.connect("mongodb://localhost/apiRestaurante", {
     useNewUrlParser:true,
     useUnifiedTopology:true,
     useFindAndModify: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 
 })
     .then(db => console.log('Se ha conectado a la db'))

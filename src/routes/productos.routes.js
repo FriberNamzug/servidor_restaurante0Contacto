@@ -14,4 +14,4 @@ router.put('/:productoId', productosController.actualizarProducto)
 router.delete('/:productoId', productosController.eliminarProducto)
 
 
-export default router
+export default router 

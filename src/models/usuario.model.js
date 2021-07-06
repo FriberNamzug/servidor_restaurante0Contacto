@@ -38,6 +38,11 @@ const usuarioSchema = new Schema ({
         required:false,
         default: false
     },
+    imgPerfil:{
+        type:String,
+        required:false,
+        default: "http://www.pngall.com/wp-content/uploads/5/Profile-PNG-Clipart.png"
+    },
 
     historialPedidos:[{
         nombre: {

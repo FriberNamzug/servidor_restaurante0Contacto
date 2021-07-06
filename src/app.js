@@ -7,6 +7,7 @@ import {creandoRoles, creandoUsuario} from "./libs/initialSetup"
 
 import productosRoutes from './routes/productos.routes'
 import autenticacionRoutes from './routes/autenticacion.routes'
+import usuarioRoutes from './routes/usuario.routes'
 
 const app = express()
 
@@ -28,5 +29,6 @@ app.get('/',(req,res) =>{
 
 app.use('/api/productos',productosRoutes)
 app.use('/api/autenticacion',autenticacionRoutes)
+app.use('/api/usuario',usuarioRoutes)
 
 export default app

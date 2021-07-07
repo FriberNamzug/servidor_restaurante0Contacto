@@ -2,7 +2,7 @@ import express from 'express'
 import morgan from 'morgan'
 import pkg from "../package.json";
 import cors from 'cors'
-import {creandoRoles, creandoUsuario} from "./libs/initialSetup"
+import {creandoUsuario} from "./libs/initialSetup"
 
 
 import productosRoutes from './routes/productos.routes'
@@ -11,8 +11,7 @@ import usuarioRoutes from './routes/usuario.routes'
 
 const app = express()
 
-//creandoRoles()
- 
+creandoUsuario()
 app.use(cors());
 app.use(express.json())
 app.set('pkg',pkg)

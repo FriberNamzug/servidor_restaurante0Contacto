@@ -7,7 +7,7 @@ export const actualizarUsuario = async (req,res) => {
     try {
 
         const usuarioId = req.params.usuarioId
-        const {nombre, apellido, email, edad, telefono, recibirPromociones, carrito} = req.body
+        const {nombre, apellido, email, edad, telefono, recibirPromociones, carrito, imgPerfil} = req.body
 /*  
 validamos si es que se envia una id correcta
 */
@@ -22,6 +22,7 @@ validamos si es que se envia una id correcta
         usuario.telefono = telefono
         usuario.recibirPromociones = recibirPromociones
         usuario.carrito = carrito
+        usuario.imgPerfil = imgPerfil
 
         const usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, usuario, {
             new:true
@@ -36,7 +37,8 @@ validamos si es que se envia una id correcta
                 edad: usuario.edad ,
                 telefono: usuario.telefono,
                 recibirPromociones: usuario.recibirPromociones,
-                carrito: usuario.carrito
+                carrito: usuario.carrito,
+                imgPerfil: usuario.imgPerfil
             }
         })
         
@@ -89,7 +91,7 @@ export const obtenerUsuario = async (req,res)=>{
 
       const usuarioId = req.params.usuarioId
     
-        const usuario = await Usuario.findById(usuarioId)
+        const usuario = await Usuario.findById(usuarioId).populate('carrito')
         if(usuario === null) return res.status(400).json({message:"No encontramos el usuario buscado"})
     
 

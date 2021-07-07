@@ -62,8 +62,10 @@ const usuarioSchema = new Schema ({
         }
     }],
 
-
-
+    carrito:[{
+        type: Schema.Types.ObjectId,
+        ref:'Producto'
+    }]
 
 },{
     timestamps: true,

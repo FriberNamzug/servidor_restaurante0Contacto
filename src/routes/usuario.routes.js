@@ -8,11 +8,15 @@ router.get('/', usuarioController.obtenerUsuarios)
 router.put('/:usuarioId', usuarioController.actualizarUsuario)
 
 router.get('/:usuarioId', usuarioController.obtenerUsuario)
+
+router.post('/agregar/', usuarioController.agregarProductoCarrito)
+
+router.post('/eliminar/', usuarioController.eliminarProductoCarrito)
+
+
+
 /*
-router.post('/', verifyToken ,productosController.crearProducto)
-
-
-
-router.delete('/:productoId', productosController.eliminarProducto) */
+router.delete('/:productoId', productosController.eliminarProducto)
+ */
 
 export default router

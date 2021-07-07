@@ -7,7 +7,7 @@ export const actualizarUsuario = async (req,res) => {
     try {
 
         const usuarioId = req.params.usuarioId
-        const {nombre, apellido, email, edad, telefono, recibirPromociones} = req.body
+        const {nombre, apellido, email, edad, telefono, recibirPromociones, carrito} = req.body
 /*  
 validamos si es que se envia una id correcta
 */
@@ -21,10 +21,11 @@ validamos si es que se envia una id correcta
         usuario.edad     = edad
         usuario.telefono = telefono
         usuario.recibirPromociones = recibirPromociones
+        usuario.carrito = carrito
 
         const usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, usuario, {
             new:true
-        })
+        }).populate('carrito')
 
         res.status(200).json({
             message: "Se actualizo de forma exitosa el usuario",
@@ -35,6 +36,7 @@ validamos si es que se envia una id correcta
                 edad: usuario.edad ,
                 telefono: usuario.telefono,
                 recibirPromociones: usuario.recibirPromociones,
+                carrito: usuario.carrito
             }
         })
         
@@ -52,9 +54,6 @@ validamos si es que se envia una id correcta
 
 /* OBTENER LOS USUARIOS */
 export const obtenerUsuarios = async (req,res)=>{
-
-
-
 
     try {
         const usuarios = await Usuario.find()
@@ -101,6 +100,71 @@ export const obtenerUsuario = async (req,res)=>{
 
         console.log(usuario)
     
+    
+    } catch (error) {
+        res.status(500).json({
+            message: "Ocurrio un error en el servidor",
+            error,
+         })
+         console.log(`Ocurrio un error en el servidor: ${error})`)
+      
+    }
+    
+    }
+
+
+/* 
+
+Controllers de los carritos xd
+
+*/
+export const agregarProductoCarrito = async (req,res)=>{
+        try {
+            const{productoId, usuarioId} = req.body
+            /* faltan hacer algunas validaciones con los datos recibidos */         
+
+            const productoAgregado = await Usuario.findByIdAndUpdate(usuarioId, {'$addToSet':{'carrito':productoId}}, {
+                new:true
+            }).populate('carrito')
+            
+            res.status(200).json({
+                message: "Se agrego de forma exitosa el producto al carrito",
+                productoAgregado
+            })
+
+        
+        } catch (error) {
+            res.status(500).json({
+                message: "Ocurrio un error en el servidor",
+                error,
+             })
+             console.log(`Ocurrio un error en el servidor: ${error})`)
+          
+        }
+        
+}
+
+/* Este eliminara el producto buscado del carrito */
+
+export const eliminarProductoCarrito = async (req,res)=>{
+    try {
+
+        const{productoId, usuarioId} = req.body
+
+/* se debe validar que el producto exista para evitar errores de servidor */
+
+            const productoEliminado = await Usuario.findByIdAndUpdate(usuarioId, {'$pull':{'carrito':productoId}}, {
+                new:true
+            }).populate('carrito')
+/*           
+.update({"_id": ObjectId("60e37a89bdf4a100464c3f7c")},{$pull:{"carrito": ObjectId("60e484e3a22bcb4f402855bd")}})
+con esta funciona desde mongodb //aqui no es necesario colocar el ObjecId
+*/
+            res.status(200).json({
+                message: "Se elimino de forma exitosa el producto del carrito",
+                productoEliminado
+                        })
+
     
     } catch (error) {
         res.status(500).json({

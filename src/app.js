@@ -12,6 +12,8 @@ import usuarioRoutes from './routes/usuario.routes'
 const app = express()
 
 creandoUsuario()
+
+app.use(express.static('public')); //https://es.stackoverflow.com/questions/406518/c%C3%B3mo-mostrar-las-imagenes-guardadas-en-nodejs-desde-angular //Esta linea nos ayuda a ver las imagenes en el servidor
 app.use(cors());
 app.use(express.json())
 app.set('pkg',pkg)
@@ -29,5 +31,6 @@ app.get('/',(req,res) =>{
 app.use('/api/productos',productosRoutes)
 app.use('/api/autenticacion',autenticacionRoutes)
 app.use('/api/usuario',usuarioRoutes)
+
 
 export default app

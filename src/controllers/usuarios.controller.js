@@ -7,7 +7,7 @@ export const actualizarUsuario = async (req,res) => {
     try {
 
         const usuarioId = req.params.usuarioId
-        const {nombre, apellido, email, edad, telefono, recibirPromociones, carrito, imgPerfil} = req.body
+        const {nombre, apellido, email, edad, telefono, recibirPromociones, carrito} = req.body
 /*  
 validamos si es que se envia una id correcta
 */
@@ -22,7 +22,6 @@ validamos si es que se envia una id correcta
         usuario.telefono = telefono
         usuario.recibirPromociones = recibirPromociones
         usuario.carrito = carrito
-        usuario.imgPerfil = imgPerfil
 
         const usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, usuario, {
             new:true
@@ -52,6 +51,38 @@ validamos si es que se envia una id correcta
     }
 
 }
+
+
+
+
+/* SUBIR/ACTUALIZAR IMAGEN DE PERFIL DE USUARIO */
+
+export const subirImagenPerfil = async (req,res)=>{
+
+    try {
+        
+        const usuarioId = req.params.usuarioId
+
+        let usuario = await Usuario.findById(usuarioId)
+        /*  
+        validamos si es que se envia una id correcta
+        */
+        if(usuario === null) return res.status(400).json({message:"No encontramos el usuario buscado"})
+
+        usuario.imgPerfil = req.file.path 
+        const usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, usuario, {
+            new:true
+        })
+        res.status(200).json({
+            message:'Se subio de forma exitosa',
+            rutaImg: usuario.imgPerfil
+        })   
+    } catch (error) {
+        console.error('Error del servidor :(',error)
+    }
+
+}
+
 
 
 /* OBTENER LOS USUARIOS */

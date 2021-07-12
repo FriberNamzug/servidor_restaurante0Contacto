@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import * as usuarioController from '../controllers/usuarios.controller'
+import {upload} from '../middlewares'
 
 const router = Router()
 
@@ -9,6 +10,13 @@ router.put('/:usuarioId', usuarioController.actualizarUsuario)
 
 router.get('/:usuarioId', usuarioController.obtenerUsuario)
 
+router.put('/upload/:usuarioId', upload.single('imagen'), usuarioController.subirImagenPerfil)
+
+/* 
+////////////////////////////////////////////////////////////////
+*/
+
+/* peticiones del carrito usuario */
 router.post('/agregar/', usuarioController.agregarProductoCarrito)
 
 router.post('/eliminar/', usuarioController.eliminarProductoCarrito)

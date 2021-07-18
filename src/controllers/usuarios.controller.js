@@ -2,6 +2,54 @@ import Usuario from "../models/usuario.model"
 import jwt from "jsonwebtoken"
 import configToken from "../config/token";
 
+
+export const actualizarPassword = async (req,res)=>{
+
+    try {
+        
+const usuarioId = req.params.usuarioId
+const {nuevaPassword, viejaPassword} = req.body
+
+//Validamos que el usuario exista
+let usuarioEncontrado = await Usuario.findById(usuarioId)
+if(!usuarioEncontrado) return res.status(400).json({message:"No encontramos el usuario buscado"})
+
+const passwordEmparejada = await Usuario.compararPassword(viejaPassword, usuarioEncontrado.password)
+//Validamos que la password que se trae sea correcta
+if(!passwordEmparejada) return res.status(401).json({message:"Contraseña invalida"})
+//encriptamos
+const NuevaPasswordEncriptada = await Usuario.encryptPassword(nuevaPassword)
+//guardamos en una const usuario para actualizar
+const usuario = {
+    password: NuevaPasswordEncriptada
+}
+
+    await Usuario.findByIdAndUpdate(usuarioId, usuario, {
+    new:true
+})
+
+
+console.log('Password Actualizada'+ NuevaPasswordEncriptada)
+
+res.status(200).json({
+    message: "Se actualizo de forma exitosa el password"
+})
+
+
+
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Ocurrio un error en el servidor",
+            error,
+         })
+         console.log(`Ocurrio un error en el servidor: ${error})`)
+    }
+
+}
+
+
+
 export const actualizarUsuario = async (req,res) => {
 
     try {
@@ -146,9 +194,14 @@ export const obtenerUsuario = async (req,res)=>{
     }
 
 
+
+
+
+
+
 /* 
 
-Controllers de los carritos xd
+Agrega producto al carrito
 
 */
 export const agregarProductoCarrito = async (req,res)=>{
@@ -176,6 +229,12 @@ export const agregarProductoCarrito = async (req,res)=>{
         }
         
 }
+
+
+
+
+
+
 
 /* Este eliminara el producto buscado del carrito */
 

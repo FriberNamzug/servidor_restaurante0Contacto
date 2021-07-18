@@ -12,6 +12,8 @@ router.get('/:usuarioId', usuarioController.obtenerUsuario)
 
 router.put('/upload/:usuarioId', upload.single('imagen'), usuarioController.subirImagenPerfil)
 
+router.put('/password/:usuarioId', usuarioController.actualizarPassword)
+
 /* 
 ////////////////////////////////////////////////////////////////
 */

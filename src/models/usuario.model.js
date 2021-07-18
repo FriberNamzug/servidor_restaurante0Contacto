@@ -41,7 +41,7 @@ const usuarioSchema = new Schema ({
     imgPerfil:{
         type:String,
         required:false,
-        default: "http://www.pngall.com/wp-content/uploads/5/Profile-PNG-Clipart.png"
+        default: "public/upload/imgPerfil/perfilPerdeterminado.png"
     },
 
     historialPedidos:[{
@@ -63,8 +63,21 @@ const usuarioSchema = new Schema ({
     }],
 
     carrito:[{
-        type: Schema.Types.ObjectId,
-        ref:'Producto'
+        nombre: {
+            type: String,
+        },
+        descripcion:{
+            type: String,
+        },
+        categoria: {
+            type: String,
+        },
+        precio: {
+            type: String,
+        },
+        imagenUrl: {
+            type: String,
+        },
     }]
 
 },{

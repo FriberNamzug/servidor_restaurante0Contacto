@@ -1,7 +1,14 @@
 import Usuario from "../models/usuario.model"
+import Producto from '../models/producto.model'
+
 import jwt from "jsonwebtoken"
 import configToken from "../config/token";
 
+/* 
+
+Actualizamos el password 
+
+*/
 
 export const actualizarPassword = async (req,res)=>{
 
@@ -48,7 +55,13 @@ res.status(200).json({
 
 }
 
+/* 
 
+
+ACTUALIZAMOS EL USUARIO
+
+
+*/
 
 export const actualizarUsuario = async (req,res) => {
 
@@ -56,13 +69,10 @@ export const actualizarUsuario = async (req,res) => {
 
         const usuarioId = req.params.usuarioId
         const {nombre, apellido, email, edad, telefono, recibirPromociones, carrito} = req.body
-/*  
-validamos si es que se envia una id correcta
-*/
+
         let usuario = await Usuario.findById(usuarioId)
         if(usuario === null) return res.status(400).json({message:"No encontramos el usuario buscado"})
         
-        /* despues de validar, enviamos actualizacion con lo que se reciba de body */
         usuario.nombre   = nombre
         usuario.apellido = apellido
         usuario.email    = email
@@ -103,7 +113,13 @@ validamos si es que se envia una id correcta
 
 
 
-/* SUBIR/ACTUALIZAR IMAGEN DE PERFIL DE USUARIO */
+/* 
+
+
+SUBIR/ACTUALIZAR IMAGEN DE PERFIL DE USUARIO 
+
+
+*/
 
 export const subirImagenPerfil = async (req,res)=>{
 
@@ -133,7 +149,13 @@ export const subirImagenPerfil = async (req,res)=>{
 
 
 
-/* OBTENER LOS USUARIOS */
+/*
+
+
+OBTENER LOS USUARIOS 
+
+
+*/
 export const obtenerUsuarios = async (req,res)=>{
 
     try {
@@ -163,7 +185,13 @@ export const obtenerUsuarios = async (req,res)=>{
 
 
 
-/* Obtener un solo usuario */
+/* 
+
+
+Obtener un solo usuario
+
+
+*/
 
 export const obtenerUsuario = async (req,res)=>{
     try {
@@ -207,15 +235,34 @@ Agrega producto al carrito
 export const agregarProductoCarrito = async (req,res)=>{
         try {
             const{productoId, usuarioId} = req.body
-            /* faltan hacer algunas validaciones con los datos recibidos */         
 
-            const productoAgregado = await Usuario.findByIdAndUpdate(usuarioId, {'$addToSet':{'carrito':productoId}}, {
-                new:true
-            }).populate('carrito')
+            let usuarioEncontrado = await Usuario.findById(usuarioId)
+            if(!usuarioEncontrado) return res.status(400).json({message:"No encontramos el usuario solicitado"})
+
+
+            let productoEncontrado = await Producto.findById(productoId)
+            if(!productoEncontrado) return res.status(400).json({message:"No encontramos el producto solicitado"})
             
+            
+                                                                            //Se cambio el $addToSet ya que este solo agrega si no existe
+            const productoAgregado = await Usuario.findByIdAndUpdate(usuarioId, {'$addToSet':{
+                                                                                    'carrito':{
+                                                                                        'nombre':productoEncontrado.nombre,
+                                                                                        'descripcion':productoEncontrado.descripcion,
+                                                                                        'categoria':productoEncontrado.categoria,
+                                                                                        'precio':productoEncontrado.precio,
+                                                                                        'imagenUrl':productoEncontrado.imagenUrl,
+                                                                                        
+                                                                                    }
+                                                                                }
+                                                                            }, 
+                                                                            {
+                                                                                new:true
+                                                                            }).populate('carrito')
+
             res.status(200).json({
-                message: "Se agrego de forma exitosa el producto al carrito",
-                productoAgregado
+                message: `Se agrego de forma exitosa el producto '${productoEncontrado.nombre}' al carrito`,
+                producto: productoEncontrado.nombre
             })
 
         
@@ -231,40 +278,39 @@ export const agregarProductoCarrito = async (req,res)=>{
 }
 
 
+/* 
 
 
+Este eliminara el producto buscado del carrito 
 
 
-
-/* Este eliminara el producto buscado del carrito */
+*/
 
 export const eliminarProductoCarrito = async (req,res)=>{
     try {
 
         const{productoId, usuarioId} = req.body
 
-/* se debe validar que el producto exista para evitar errores de servidor */
+        let usuarioEncontrado = await Usuario.find({'_id': usuarioId, 'carrito._id':productoId})
+        if(!usuarioEncontrado) return res.status(400).json({message:"No encontramos el usuario solicitado o el producto a quitar del carrito"})
 
-            const productoEliminado = await Usuario.findByIdAndUpdate(usuarioId, {'$pull':{'carrito':productoId}}, {
+            const productoEliminado = await Usuario.findByIdAndUpdate(usuarioId, {'$pull':{'carrito':{'_id':productoId}}}, {
                 new:true
             }).populate('carrito')
 /*           
+db.getCollection('usuarios').find({"_id": ObjectId("60f4a51a995e0344d835549d"), "carrito._id": ObjectId("60f4a603e6921959e85b5979")})
+///
 .update({"_id": ObjectId("60e37a89bdf4a100464c3f7c")},{$pull:{"carrito": ObjectId("60e484e3a22bcb4f402855bd")}})
 con esta funciona desde mongodb //aqui no es necesario colocar el ObjecId
 */
             res.status(200).json({
                 message: "Se elimino de forma exitosa el producto del carrito",
-                productoEliminado
                         })
-
-    
     } catch (error) {
         res.status(500).json({
             message: "Ocurrio un error en el servidor",
             error,
          })
          console.log(`Ocurrio un error en el servidor: ${error})`)
-      
-    }
-    
-    }
+    }   
+}

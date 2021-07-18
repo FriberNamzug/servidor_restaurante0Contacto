@@ -10,6 +10,227 @@
 			"item": [
 				{
 					"name": "Obtener Productos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/productos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"productos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Producto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/productos/60e3380af86c535cfc1286a1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"productos",
+								"60e3380af86c535cfc1286a1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Producto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "myvalue",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\r\n            \"nombre\": \"Molletes Sanborns\",\r\n            \"descripcion\": \"4 piezas. Bolillos con frijoles, gratinados con queso.\",\r\n            \"categoria\": \"Mexicana\",\r\n            \"precio\": 100,\r\n            \"imagenUrl\": \"https://d1ralsognjng37.cloudfront.net/7e6d2979-c9cf-4c0a-ad4a-3d658d20302b.jpeg\"\r\n        }"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Producto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n        \"imagenUrl\": \"https://d1ralsognjng37.cloudfront.net/264e7bb2-b04a-4e80-97fd-85988546ac6d.jpeg\"   \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/productos/60e484fca22bcb4f402855be",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"productos",
+								"60e484fca22bcb4f402855be"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Producto",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/productos/60e3f65eca1172004666c00e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"productos",
+								"60e3f65eca1172004666c00e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autenticacion",
+			"item": [
+				{
+					"name": "Registro",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"robertofriber@gmail.com\",\r\n    \"password\":\"1234\",\r\n    \"nombre\": \"Roberto Friber\",\r\n    \"apellido\":\"Marin Guzman\",\r\n    \"telefono\": \"4494661233\",\r\n    \"terminosCondiciones\": true\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/autenticacion/signup/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"autenticacion",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IniciarSesion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\": \"nomelase@gmail.com\",\r\n   \"password\": \"123123\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/autenticacion/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"autenticacion",
+								"signin"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Obtener Usuario",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -27,40 +248,145 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/productos",
+							"raw": "http://localhost:3000/api/usuario/60f4a51a995e0344d835549d",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"productos"
+								"api",
+								"usuario",
+								"60f4a51a995e0344d835549d"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Obtener Producto",
+					"name": "Subir Imagen Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagen",
+									"type": "file",
+									"src": "/C:/Users/rober/OneDrive/backgro/5452034.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/usuario/upload/60e5598605b7433b5c30125c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuario",
+								"upload",
+								"60e5598605b7433b5c30125c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"nombre\": \"1\",\r\n    \"apellido\": \"asd\",\r\n    \"carrito\": \"60e48468a22bcb4f402855bb\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/usuario/60e37a89bdf4a100464c3f7c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuario",
+								"60e37a89bdf4a100464c3f7c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"viejaPassword\": \"1233\",\r\n    \"nuevaPassword\": \"123\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/usuario/password/60e5598605b7433b5c30125c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuario",
+								"password",
+								"60e5598605b7433b5c30125c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Usuarios",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/productos",
+							"raw": "http://localhost:3000/api/usuario/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"productos"
+								"api",
+								"usuario",
+								""
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Crear Producto",
+					"name": "agregarCarrito",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -72,59 +398,52 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Pollo Empanizado\",\r\n    \"categoria\": \"Pollo\",\r\n    \"precio\": 125,\r\n    \"imagenUrl\": \"https://media-cdn.tripadvisor.com/media/photo-s/0c/3b/49/4c/comida-riquisima.jpg\"\r\n}"
+							"raw": "{\r\n    \"productoId\": \"60e3f65dca1172004666c00d\",\r\n    \"usuarioId\":    \"60f4a51a995e0344d835549d\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/productos",
+							"raw": "http://localhost:3000/api/usuario/agregar/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"productos"
+								"api",
+								"usuario",
+								"agregar",
+								""
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Actualizar Producto",
+					"name": "eliminarCarrito",
 					"request": {
-						"method": "PUT",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\r\n    \"productoId\": \"60f4a603e6921959e85b5979\",\r\n    \"usuarioId\":    \"60f4a51a995e0344d835549d\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/productos",
+							"raw": "http://localhost:3000/api/usuario/eliminar/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"productos"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Eliminar Producto",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/productos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"productos"
+								"api",
+								"usuario",
+								"eliminar",
+								""
 							]
 						}
 					},

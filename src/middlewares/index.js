@@ -1,4 +1,4 @@
 import {verifyToken} from './autenticacionJwt'
-import { upload } from './storage'
+import { upload, uploadProducto } from './storage'
 
-export {verifyToken, upload}
+export {verifyToken, upload, uploadProducto}

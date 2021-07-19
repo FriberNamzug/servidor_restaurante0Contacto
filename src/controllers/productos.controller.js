@@ -171,4 +171,40 @@ export const eliminarProducto = async (req,res)=>{
     }
 
 
+
+}
+
+//////////////////////////////////////////////////////
+    //Actualizar Imagen de producto
+//////////////////////////////////////////////////////
+export const actualizarImagenProducto = async (req,res) =>{
+
+    try {
+        const productoId = req.params.productoId
+        let producto = await Producto.findById(productoId)
+
+        if(!producto) return res.status(400).json({message:"No encontramos el producto buscado"})        
+        producto.imagenUrl = req.file.path
+
+        await Producto.findByIdAndUpdate(productoId, producto, {
+            new:true
+        })
+        res.status(200).json({
+            message:'Se subio de forma exitosa',
+            rutaImg: producto.imagenUrl
+        })  
+
+
+
+
+
+        
+    } catch (error) {
+        res.status(500).json({
+            message: "Ocurrio un error en el servidor",
+            error,
+         })
+         console.log(`Ocurrio un error en el servidor: ${error})`)
+    }
+
 }

@@ -15,6 +15,19 @@ Me ayude de este repositorio para crear esto c:
       cb(null, `${file.fieldname}-${Date.now()}.jpeg`)
     }
   })
+ 
+ 
+ 
+  const storageProducto = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/upload/imgProducto')
+    },
+
+    filename: function (req, file, cb) {
+  
+      cb(null, `${file.fieldname}-${Date.now()}.jpeg`)
+    }
+  })
 
   
   const fileFilter = (req, file, cb) => {
@@ -26,13 +39,25 @@ Me ayude de este repositorio para crear esto c:
     }
   };
   
+
+
+
  export const upload = multer({
     storage: storage,
-    limits: {
+/*     limits: {
       fileSize: 1024 * 1024 * 5
     },
-    fileFilter: fileFilter
+    */
+    fileFilter: fileFilter 
   });
+
+ export const uploadProducto = multer({
+  storage: storageProducto,
+  fileFilter: fileFilter 
+
+});
+
+
 
 
    

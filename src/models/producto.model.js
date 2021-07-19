@@ -23,7 +23,7 @@ const productoSchema = new Schema ({
     imagenUrl: {
         type: String,
         require:  ["Se requiere imagen del producto", true],
-        default: "public/upload/imgProducto/producto.png"
+        default: "upload/imgProducto/producto.png"
     }
     
 },{

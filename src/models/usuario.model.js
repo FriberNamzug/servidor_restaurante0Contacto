@@ -41,7 +41,7 @@ const usuarioSchema = new Schema ({
     imgPerfil:{
         type:String,
         required:false,
-        default: "public/upload/imgPerfil/perfilPerdeterminado.png"
+        default: "upload/imgPerfil/perfilPerdeterminado.png"
     },
 
     historialPedidos:[{

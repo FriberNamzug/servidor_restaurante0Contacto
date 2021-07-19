@@ -133,7 +133,11 @@ export const subirImagenPerfil = async (req,res)=>{
         */
         if(usuario === null) return res.status(400).json({message:"No encontramos el usuario buscado"})
 
-        usuario.imgPerfil = req.file.path 
+       let  url = req.file.path 
+
+        usuario.imgPerfil = `${url.substr(7,6)}/${url.substr(14,9)}/${url.substr(24)}`
+
+
         const usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, usuario, {
             new:true
         })

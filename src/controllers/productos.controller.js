@@ -184,7 +184,11 @@ export const actualizarImagenProducto = async (req,res) =>{
         let producto = await Producto.findById(productoId)
 
         if(!producto) return res.status(400).json({message:"No encontramos el producto buscado"})        
-        producto.imagenUrl = req.file.path
+
+        let url = req.file.path
+
+        producto.imagenUrl = `${url.substr(7,6)}/${url.substr(14,11)}/${url.substr(26)}`
+
 
         await Producto.findByIdAndUpdate(productoId, producto, {
             new:true

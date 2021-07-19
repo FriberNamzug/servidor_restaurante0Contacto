@@ -318,3 +318,54 @@ con esta funciona desde mongodb //aqui no es necesario colocar el ObjecId
          console.log(`Ocurrio un error en el servidor: ${error})`)
     }   
 }
+
+
+
+/* 
+
+OBTENER CLIENTES
+
+*/
+
+
+export const obtenerClientes = async (req,res)=>{
+
+    try {
+        const usuarios = await Usuario.find({'rol':'cliente'})
+        if(!usuarios) return res.status(400).json({message:"No encontramos clientes en la database"})
+        res.json({
+            message: "Se han obtenido los usuarios de forma correcta",
+            usuarios
+        })   
+    } catch (error) {
+        res.status(500).json({
+            message: "Ocurrio un error en el servidor",
+            error,
+         })
+         console.log(`Ocurrio un error en el servidor: ${error})`)
+    }
+}
+
+/* 
+
+OBTENER EMPLEADOS
+
+*/
+
+
+export const obtenerEmpleados = async (req,res)=>{
+    try {
+        const usuarios = await Usuario.find({'rol':'empleado'})
+        if(!usuarios) return res.status(400).json({message:"No encontramos empleados en la database"})
+        res.json({
+            message: "Se han obtenido los usuarios de forma correcta",
+            usuarios
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Ocurrio un error en el servidor",
+            error,
+         })
+         console.log(`Ocurrio un error en el servidor: ${error})`)
+    }
+}

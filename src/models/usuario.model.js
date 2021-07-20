@@ -43,6 +43,11 @@ const usuarioSchema = new Schema ({
         required:false,
         default: "upload/imgPerfil/perfilPerdeterminado.png"
     },
+    statusLaboral:{
+        type:String,
+        required:true,
+        default: "descanzo"
+    },
 
     historialPedidos:[{
         nombre: {

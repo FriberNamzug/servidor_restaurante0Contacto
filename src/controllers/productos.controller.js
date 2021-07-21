@@ -56,7 +56,7 @@ try {
 
     const producto = await Producto.findById(req.params.productoId)
     
-    if(producto === null) return res.status(400).json({message:"No encontramos el producto buscado"})
+    if(!producto) return res.status(400).json({message:"No encontramos el producto buscado"})
 
     res.status(200).json({
         message: "Se ha obtenido el producto de forma correcta",
@@ -86,7 +86,7 @@ export const obtenerProductos = async (req,res)=>{
     try {
         const productos = await Producto.find()
 
-        if(productos === null) return res.status(400).json({message:"No encontramos producos en la database"})
+        if(!productos) return res.status(400).json({message:"No encontramos producos en la database"})
 
         res.json({
             message: "Se han obtenido los productos de forma correcta",
@@ -118,7 +118,7 @@ export const actualizarProducto = async (req,res)=>{
 validamos si es que se envia una id correcta
 */
         const producto = await Producto.findById(productoId)
-        if(producto === null) return res.status(400).json({message:"No encontramos el producto buscado"})
+        if(!producto) return res.status(400).json({message:"No encontramos el producto buscado"})
 
         /* despues de validar, enviamos actualizacion con lo que se reciba de body */
         const productoActualizado = await Producto.findByIdAndUpdate(productoId, req.body, {
@@ -152,7 +152,7 @@ export const eliminarProducto = async (req,res)=>{
 
         const producto = await Producto.findById(productoId)
 
-        if(producto === null) return res.status(400).json({message:"No encontramos el producto buscado"})
+        if(!producto) return res.status(400).json({message:"No encontramos el producto buscado"})
     
         await Producto.findByIdAndRemove(productoId)
         res.status(200).json({

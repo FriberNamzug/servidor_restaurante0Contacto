@@ -46,7 +46,12 @@ const usuarioSchema = new Schema ({
     statusLaboral:{
         type:String,
         required:true,
-        default: "descanzo"
+        default: "sin estatus"
+    },
+    deshabilitado:{
+        type:Boolean,
+        required:true,
+        default: false
     },
 
     historialPedidos:[{

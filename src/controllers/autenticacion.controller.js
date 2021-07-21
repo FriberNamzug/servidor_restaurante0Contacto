@@ -14,9 +14,14 @@ export const registrarse = async (req,res) => {
        //validara validar si existe usuario
     const UsuarioExistente = await Usuario.findOne({email})
     
+    if(UsuarioExistente.deshabilitado === true) {
+       return res.status(400).json({
+          message:`Existe un usuario con este correo: ${email} y se encuentra deshabilitado, si quieres usar este email contacta al administrador`
+         })}
+
     if(UsuarioExistente){
        return res.status(400).json({
-          message: "E-Mail en uso, registrate con otro o inicia sesion con " + email,
+          message: `E-Mail en uso, registrate con otro o inicia sesion con ${email}`
          })
       }
 
@@ -56,6 +61,7 @@ export const registrarse = async (req,res) => {
          email: email,
          password: "Encryptada y segura!!",
          terminosCondiciones: terminosCondiciones,
+         token:token
       }
       })
     console.log(usuarioGuardado)
@@ -98,6 +104,7 @@ export const inicioSesion = async (req,res) => {
         console.log(usuarioEncontrado)
     
         if(!usuarioEncontrado) return res.status(400).json({message: "El E-Mail no se encontro, registrate"})
+        if(usuarioEncontrado === true) return res.status(400).json({message: "Usuario Deshabilitado"})
     
         const passwordEmparejada = await Usuario.compararPassword(password, usuarioEncontrado.password)
         

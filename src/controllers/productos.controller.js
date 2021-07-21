@@ -5,45 +5,29 @@ import Producto from '../models/producto.model'
 //////////////////////////////////////////////////////
 export const crearProducto = async (req,res)=>{
 
-try {
-    
-const{nombre, descripcion, categoria, ingredientes, precio, imagenUrl} = req.body
+    try {
+        const{nombre, descripcion, categoria, ingredientes, precio, imagenUrl} = req.body
+        const nuevoProducto = new Producto({
+            nombre,
+            descripcion,
+            categoria,
+            ingredientes,
+            precio,
+            imagenUrl
+        })
+        const productoGuardado =  await nuevoProducto.save()
 
-const nuevoProducto = new Producto({
-    nombre,
-    descripcion,
-    categoria,
-    ingredientes,
-    precio,
-    imagenUrl
-})
-
-const productoGuardado =  await nuevoProducto.save()
-
-res.status(201).json({
-    message: "Producto creado con exito",
-    productoGuardado
-})
-
-
-
-} catch (error) {
-
-    res.status(500).json({
-        message: "Ocurrio un error en el servidor",
-        error,
-     })
-     console.log(`Ocurrio un error en el servidor: ${error})`)
-  
-}
-
-
-
-
-
-
-
-
+        res.status(201).json({
+            message: "Producto creado con exito",
+            productoGuardado
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Ocurrio un error en el servidor",
+            error,
+        })
+        console.log(`Ocurrio un error en el servidor: ${error})`)
+    }
 }
 
 //////////////////////////////////////////////////////

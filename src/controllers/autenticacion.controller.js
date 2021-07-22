@@ -14,11 +14,6 @@ export const registrarse = async (req,res) => {
        //validara validar si existe usuario
     const UsuarioExistente = await Usuario.findOne({email})
     
-    if(UsuarioExistente.deshabilitado === true) {
-       return res.status(400).json({
-          message:`Existe un usuario con este correo: ${email} y se encuentra deshabilitado, si quieres usar este email contacta al administrador`
-         })}
-
     if(UsuarioExistente){
        return res.status(400).json({
           message: `E-Mail en uso, registrate con otro o inicia sesion con ${email}`

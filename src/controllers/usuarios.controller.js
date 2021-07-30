@@ -239,8 +239,8 @@ Agrega producto al carrito
 
 */
 export const agregarProductoCarrito = async (req,res)=>{
-        try {
-            const{productoId, usuarioId} = req.body
+        try {            const{productoId, usuarioId} = req.body
+
 
             let usuarioEncontrado = await Usuario.findById(usuarioId,{password:false})
             if(!usuarioEncontrado) return res.status(400).json({message:"No encontramos el usuario solicitado"})

@@ -88,6 +88,21 @@ const usuarioSchema = new Schema ({
         imagenUrl: {
             type: String,
         },
+    }],
+
+    chat:[{
+        id: {
+            type: Schema.Types.ObjectId,
+            ref: 'Usuario'
+            },
+
+        mensaje: String,
+        mensajeType: Boolean,
+
+        create_at: {
+            type:Date,
+            default: Date.now
+        }
     }]
 
 },{

@@ -11,7 +11,6 @@ router.get('/empleados/deshabilitado/', usuarioController.obtenerEmpleadosDeshab
 router.get('/clientes/deshabilitado/', usuarioController.obtenerClientesDeshabilitados)
 
 router.get('/:usuarioId', usuarioController.obtenerUsuario)
-router.get('/:usuarioId', usuarioController.obtenerUsuario)
 
 /* ------------------ */
 router.delete('/:usuarioId', usuarioController.deshabilitarUsuarioClienteEmpleado)
@@ -29,15 +28,5 @@ router.put('/password/:usuarioId', usuarioController.actualizarPassword)
 ////////////////////////////////////////////////////////////////
 */
 
-/* peticiones del carrito usuario */
-router.post('/agregar/', usuarioController.agregarProductoCarrito)
-
-router.post('/eliminar/', usuarioController.eliminarProductoCarrito)
-
-
-
-/*
-router.delete('/:productoId', productosController.eliminarProducto)
- */
 
 export default router

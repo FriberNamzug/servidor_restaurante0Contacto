@@ -8,6 +8,8 @@ import productosRoutes from "./routes/productos.routes";
 import autenticacionRoutes from "./routes/autenticacion.routes";
 import usuarioRoutes from "./routes/usuario.routes";
 import chatRoutes from "./routes/chat.routes";
+import carritoRoutes from "./routes/carrito.routes";
+import pagoRoutes from "./routes/pago.routes";
 
 const app = express();
 
@@ -18,7 +20,7 @@ app.use(
   cors({
     origin: true,
     credentials: true,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 app.use(express.json());
@@ -33,8 +35,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/productos", productosRoutes);
+app.use("/api/carrito", carritoRoutes);
 app.use("/api/autenticacion", autenticacionRoutes);
 app.use("/api/usuario", usuarioRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/pago", pagoRoutes);
 
 export default app;

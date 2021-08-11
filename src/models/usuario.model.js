@@ -55,21 +55,28 @@ const usuarioSchema = new Schema ({
     },
 
     historialPedidos:[{
-        nombre: {
-            type: String,
+        status:{
+            type: String
         },
-        descripcion:{
-            type: String,
-        },
-        categoria: {
-            type: String,
-        },
-        precio: {
-            type: String,
-        },
-        imagenUrl: {
-            type: String,
-        }
+        orden:[{
+                    nombre: {
+                        type: String,
+                    },
+                    descripcion:{
+                        type: String,
+                    },
+                    categoria: {
+                        type: String,
+                    },
+                    precio: {
+                        type: Number,
+                    },
+                    imagenUrl: {
+                        type: String,
+                    },
+
+                },]
+
     }],
 
     carrito:[{
@@ -83,7 +90,7 @@ const usuarioSchema = new Schema ({
             type: String,
         },
         precio: {
-            type: String,
+            type: Number,
         },
         imagenUrl: {
             type: String,
